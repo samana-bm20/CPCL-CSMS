@@ -1,0 +1,86 @@
+.esri-widget {
+    border-radius: 8px;
+    background-color: #fff !important;
+    box-shadow: rgba(236, 31, 39, 0.6) 0px 0px 0px 0.2px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset !important;
+}
+
+.esri-zoom {
+    margin-top: 2.8rem;
+}
+
+.esri-widget--button[title="Zoom in"] {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.esri-widget--button[title="Zoom out"] {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.esri-expand {
+    margin-bottom: -1.2rem;
+}
+
+.esri-widget--button[title="Expand"] {
+    border-radius: 8px !important;
+    box-shadow: rgba(236, 31, 39, 0.6) 0px 0px 0px 0.2px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset !important;
+}
+
+.esri-widget--button[title="Collapse"] {
+    border-radius: 8px !important;
+}
+
+.esri-scale-bar {
+    margin-bottom: -1.2rem;
+}
+
+.esri-attribution {
+    display: none !important;
+}
+
+[class*=" esri-icon-"] {
+    fill: #EC1F24 !important;
+    color: #EC1F24 !important;
+}
+
+.esri-expand__content {
+    position: relative;
+    width: auto;
+}
+
+.esri-expand__container.esri-expand__container--expanded {
+    z-index: 9999 !important;
+}
+
+.esri-view-width-greater-than-xsmall .esri-expand--auto .esri-expand__content {
+    position: static !important;
+    /* Or relative, depending on desired behavior */
+    display: block !important;
+    /* Ensure it's displayed */
+}
+
+.esri-basemap-gallery__item-container {
+    height: 15rem !important;
+    overflow-y: auto;
+}
+
+.esri-basemap-gallery__item img.esri-basemap-gallery__item-thumbnail {
+    border-radius: 8px;
+    border: 2px solid #2E3192;
+}
+
+.esri-basemap-gallery__item-title {
+    color: #424242 !important;
+    font-weight: 600;
+    font-size: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.esri-basemap-gallery__item--selected,
+.esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover,
+.esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
+    border-inline-start-color: #EC1F24 !important;
+    background-color: #fadcdc !important;
+}
