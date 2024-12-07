@@ -1,7 +1,7 @@
 import { loadModules } from "esri-loader";
 import { createRenderer, createClusterLayer } from "./FeatureLayerConfig";
 
-const WorkPermitLayer = async (map, view) => {
+const WorkPermitLayer = async (map, view, indiaWebMercatorExtent, isRiskScoreActive) => {
     const [FeatureLayer] = await loadModules(["esri/layers/FeatureLayer"]);
 
     const workPermitRenderer = createRenderer("unique-value", "usfd_classification", [
@@ -10,23 +10,30 @@ const WorkPermitLayer = async (map, view) => {
     ]);
 
     const workPermitPopup = {
-        title: "CPCL",
+        title: "WORK PERMIT",
         content: `
       <table class='table table-striped'>
-        <tr><td>LRRR</td><td class='popup-cell'>{lr_rr}</td></tr>
-        <tr><td>USFD Classification</td><td class='popup-cell'>{usfd_classification}</td></tr>
+                <tr><th>Permit Type: </th><td class='popup-cell'>{usfd_classification}</td></tr>
+                <tr><th>Risk Category: </th><td class='popup-cell'>{lr_rr} Risk</td></tr>
       </table>
     `,
     };
+
+
 
     const workPermitLayer = createClusterLayer(
         "https://mlinfomap.org/server/rest/services/cpcl_work_permit/MapServer/0",
         workPermitRenderer,
         workPermitPopup
     );
+    workPermitLayer.when(() => {
+        console.log("Work permit fields:", workPermitLayer);
+    }).catch(err => {
+        console.error("Error loading workPermitLayer:", err);
+    });
 
     const query = workPermitLayer.createQuery();
-    query.geometry = view.extent; 
+    query.geometry = indiaWebMercatorExtent.extent;
     query.spatialRelationship = "intersects";
 
     query.where = "usfd_classification = 'Hot Work'";
@@ -46,9 +53,29 @@ const WorkPermitLayer = async (map, view) => {
             featureReduction: {
                 type: "cluster",
                 clusterRadius: "100px",
+                fields: [
+                    {
+                        name: "highCount",
+                        statisticType: "count",
+                        onStatisticField: "lr_rr",
+                        onStatisticExpression: `IIf($feature.lr_rr == 'High', 1, 0)`
+                    },
+                    {
+                        name: "mediumCount",
+                        statisticType: "count",
+                        onStatisticField: "lr_rr",
+                        onStatisticExpression: "IIf($feature.lr_rr == 'Medium', 1, 0)"
+                    },
+                    {
+                        name: "lowCount",
+                        statisticType: "count",
+                        onStatisticField: "lr_rr",
+                        onStatisticExpression: "IIf($feature.lr_rr == 'Low', 1, 0)"
+                    }
+                ],
                 popupTemplate: {
-                    title: "Cluster summary",
-                    content: `This cluster represents {cluster_count} ${type} Work features.`,
+                    title: "WORK PERMIT CLUSTER",
+                    content: `This cluster represents {cluster_count} ${type} Work Permits.`,
                     fieldInfos: [{ fieldName: "cluster_count", format: { places: 0, digitSeparator: true } }],
                 },
                 clusterMinSize: 18,
@@ -64,6 +91,72 @@ const WorkPermitLayer = async (map, view) => {
                         },
                         labelPlacement: "center-center",
                     },
+                    {
+                        deconflictionStrategy: "none",
+                        labelExpressionInfo: {
+                            expression: `Text($feature.highCount, '#,###')`
+                        },
+                        symbol: {
+                            type: "text",
+                            color: "black",
+                            xoffset: 11,
+                            yoffset: -2,
+                            font: { weight: "bold", family: "Noto Sans", size: "13px" },
+                            haloColor: "#ff711d",
+                            haloSize: "10px",
+                        },
+                        labelPlacement: "above-left",
+                    },
+                    {
+                        deconflictionStrategy: "none",
+                        labelExpressionInfo: {
+                            expression: `Text($feature.mediumCount, '#,###')`
+                        },
+                        symbol: {
+                            type: "text",
+                            color: "black",
+                            yoffset: -10,
+                            font: { weight: "bold", family: "Noto Sans", size: "13px" },
+                            haloColor: "#edbe00",
+                            haloSize: "10px",
+                        },
+                        labelPlacement: "above-center",
+                    },
+                    {
+                        deconflictionStrategy: "none",
+                        labelExpressionInfo: {
+                            expression: `Text($feature.lowCount, '#,###')`
+                        },
+                        symbol: {
+                            type: "text",
+                            color: "black",
+                            xoffset: -11,
+                            yoffset: -2,
+                            font: { weight: "bold", family: "Noto Sans", size: "13px", },
+                            haloColor: "#00a200",
+                            haloSize: "10px",
+                        },
+                        labelPlacement: "above-right",
+                    },
+                    // {
+                    //     deconflictionStrategy: "none",
+                    //     labelExpressionInfo: {
+                    //         expression: `
+                    //         "High: " + Text($feature.highCount, '#,###') +
+                    //         "\\nMedium: " + Text($feature.mediumCount, '#,###') +
+                    //         "\\nLow: " + Text($feature.lowCount, '#,###')
+                    //     `
+                    //     },
+                    //     symbol: {
+                    //         type: "text",
+                    //         color: "white",
+                    //         font: { weight: "bold", family: "Noto Sans", size: "12px" },
+                    //         haloColor: "black", // Outer border (halo) color
+                    //         haloSize: "10px", // Halo size (thickness)
+                    //     },
+                    //     labelPlacement: "above-center",
+                    // },
+
                 ],
                 renderer: {
                     visualVariables: [
@@ -78,17 +171,35 @@ const WorkPermitLayer = async (map, view) => {
                     style: "circle",
                     color,
                     size: "15px",
-                    outline: { color: "white", width: 1 },
+                    outline: { color: "#000", width: 1 },
                 },
             },
         });
     };
 
-    const hotWorkLayer = createClusteredLayer(hotWorkQueryResult.features, "Hot", "red");
-    const coldWorkLayer = createClusteredLayer(coldWorkQueryResult.features, "Cold", "blue");
+    const hotWorkLayer = createClusteredLayer(hotWorkQueryResult.features, "Hot", "#DA291C");
+    console.log(hotWorkQueryResult.features)
+    // const coldWorkLayer = createClusteredLayer(coldWorkQueryResult.features, "Cold", "#0057B8");
 
     // Add layers to the map
-    map.addMany([hotWorkLayer, coldWorkLayer]);
+    map.add(hotWorkLayer);
+    // map.addMany([hotWorkLayer, coldWorkLayer]);
+
+    view.on("layerview-create", (event) => {
+        console.log("LayerView created:", event);
+        debugger
+        // Check if clustering is enabled
+        if (event.layerView.featureReduction?.cluster) {
+            const clusterLayerView = event.layerView.featureReduction.cluster;
+
+            // Get cluster graphics
+            clusterLayerView.getClusterGraphics().then((graphics) => {
+                graphics.forEach((graphic) => {
+                    console.log("Cluster graphic details:", graphic.attributes);
+                });
+            });
+        }
+    });
 };
 
 export default WorkPermitLayer;

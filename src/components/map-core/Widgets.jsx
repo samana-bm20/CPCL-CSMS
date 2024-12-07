@@ -32,7 +32,7 @@ export const addWidgets = (view) => {
     view.ui.add(home, "top-right");
     view.ui.add(fullscreen, "top-right");
     view.ui.add(bgExpand, "bottom-right");
-    view.ui.add(scaleBar, "bottom-left");
+    view.ui.add(scaleBar, "bottom-right");
 };
 
 export const addLegend = (view) => {

@@ -7,10 +7,10 @@ import FeatureLayers from "../map-container/FeatureLayers";
 
 // Import layers
 import WorkPermitLayer from "../layer-manager/WorkPermitLayer";
-// import RadiographyLayer from "../layer-manager/RadiographyLayer";
 
 const MapContainer = () => {
-    const [activeLayer, setActiveLayer] = useState(null); // Track the selected layer
+    const [activeLayer, setActiveLayer] = useState(null); 
+    const [isRiskScoreActive, setIsRiskScoreActive] = useState(null); 
     const [view, setView] = useState(null);
     const [map, setMap] = useState(null);
     const indiaWebMercatorExtent = getIndiaExtent();
@@ -24,7 +24,6 @@ const MapContainer = () => {
                 minZoom: 3,
                 maxExtent: indiaWebMercatorExtent,
             });
-
             setView(view);
             setMap(map);
 
@@ -40,18 +39,19 @@ const MapContainer = () => {
 
         switch (activeLayer) {
             case 1:
-                WorkPermitLayer(map, indiaWebMercatorExtent); //if we pass 'view' only chennai extent features will appear
+                WorkPermitLayer(map, view, indiaWebMercatorExtent, isRiskScoreActive); 
                 break;
-            // case 2:
-            //     RadiographyLayer(map, view.extent);
-            //     break;
             default:
                 break;
         }
-    }, [activeLayer, map, view]);
+    }, [activeLayer, map, indiaWebMercatorExtent, isRiskScoreActive]);
 
     const handleFeatureSelect = (sno) => {
         setActiveLayer(sno);
+    };
+
+    const handleRiskScoreSwitch = (riskSwitch) => {
+        setIsRiskScoreActive(riskSwitch);
     };
 
     return (
@@ -63,7 +63,7 @@ const MapContainer = () => {
             <div className="flex-1 relative">
                 <div id="viewDiv-0" className="absolute inset-0"></div>
                 <div className="absolute bg-none w-full h-[10%]">
-                    <FeatureLayers onFeatureSelect={handleFeatureSelect} />
+                    <FeatureLayers onFeatureSelect={handleFeatureSelect} handleRiskScoreSwitch={handleRiskScoreSwitch}/>
                 </div>
             </div>
         </div>

@@ -84,3 +84,112 @@
     border-inline-start-color: #EC1F24 !important;
     background-color: #fadcdc !important;
 }
+
+.esri-scale-bar {
+    background-color: #2e31922a !important;
+    width: 4rem !important;
+}
+
+/* Style the entire popup container */
+.esri-popup__main-container {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #424242; 
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    width: 17rem !important;
+    margin-top: 3rem;
+    margin-right: 3rem;
+
+}
+
+.esri-popup__action-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.6rem;
+    color: #424242 !important; 
+}
+
+.esri-feature-content {
+    font-family: 'Poppins', sans-serif;
+    padding: 0.5rem;
+    background-color: #FADCDC;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    color: #424242 !important; 
+    font-size: 0.7rem !important;
+}
+
+.esri-feature-content th{
+    color: #2E3192;
+    font-size: 0.7rem;
+}
+
+.esri-feature-content td{
+    color: #2E3192;
+    font-weight: 600;
+    color: #424242; 
+    padding-left: 1.5rem;
+    font-size: 0.7rem;
+}
+
+.esri-popup__header {
+    color: #EC1F24; 
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    border-radius: 8px !important;
+}
+
+.esri-popup__header :hover {
+    border-radius: 10px !important;
+}
+
+.esri-popup__header-title {
+    font-size: 0.8rem !important;
+
+}
+
+.esri-popup__inline-actions-container {
+    height: 1.5rem !important;
+}
+
+.esri-popup__button {
+    height: 1.5rem !important;
+    border-radius: 8px;
+}
+
+.esri-popup__feature-menu {
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600 !important;
+    color: #424242 !important; 
+    font-size: 0.7rem !important;
+    box-shadow: rgba(236, 31, 39, 0.6) 0px 0px 0px 0.2px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset !important;
+}
+
+.esri-popup__feature-menu-title {
+    padding: 0.2rem !important;
+}
+
+.esri-popup__feature-menu-header {
+    padding: 0.5rem !important;
+    font-weight: 600 !important;
+    color: #2E3192 !important; 
+    font-size: 0.7rem !important;
+}
+
+.esri-popup .esri-popup__feature-menu-item--selected {
+    background-color: #fadcdc !important;
+}
+
+.esri-popup .esri-popup__feature-menu-item:last-child:hover {
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+}
+
+.esri-popup__feature-menu-button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600 !important;
+    color: #424242 !important; 
+    font-size: 0.7rem !important;
+}
