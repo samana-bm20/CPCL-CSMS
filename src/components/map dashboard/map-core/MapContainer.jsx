@@ -55,7 +55,7 @@ const MapContainer = () => {
     };
 
     return (
-        <div className="flex flex-col flex-col-reverse md:flex-row h-full">
+        <div className="flex flex-col-reverse md:flex-row h-full">
             <div className="h-[8%] md:h-auto w-full md:w-[5.5rem] flex flex-row md:flex-col items-start md:items-center justify-evenly md:justify-start flex-shrink-0">
                 <SidePanel />
             </div>

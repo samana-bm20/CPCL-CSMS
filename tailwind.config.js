@@ -5,6 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx,html}",
   ],
   theme: {
+    colors: {
+        'primary': {
+          DEFAULT: '#2E3192',
+          light: '#CDD5EF',
+        },
+        'secondary': {
+          DEFAULT: '#ED1C24',
+          light: '#FCE5E5',
+          bg: '#ffeded',
+        },
+        'contrast': '#333',
+        'white': '#fff',
+    },
     extend: {
       screens: {
         xs: '320px',
@@ -16,6 +29,7 @@ export default {
         xxxl: '2560px',
       },
       fontFamily: {
+        inter: ['Inter', 'Open Sans'],
         poppins: ['Poppins', 'sans-serif'],
         lobster: ['Lobster', 'cursive'], 
         sans: ['Open Sans', 'Arial', 'sans-serif'],
