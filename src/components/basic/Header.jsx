@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../../assets/CPCL_Logo.png'
 import { FmdBadRounded, NotificationsRounded, MenuOpenRounded } from '@mui/icons-material'
 import { Avatar } from '@mui/material'
+import Navbar from './Navbar'
 
 const Header = () => {
+    const [openMenu, setOpenMenu] = useState(false);
     return (
             <div className="flex items-center">
                 <div className='px-4 md:pl-10 md:pr-8'>
@@ -33,11 +35,14 @@ const Header = () => {
                             <Avatar className='font-semibold' sx={{bgcolor: 'white', color: '#EC1F24'}}>KD</Avatar> 
                             {/* width: '25px', height: '25px', fontSize: '12px' */}
                         </div>
-                        <div className='flex md:hidden px-1 md:px-2'>
+                        <div 
+                        className='flex md:hidden px-1 md:px-2'
+                        onClick={() => setOpenMenu(true)}>
                             <MenuOpenRounded color='secondary'/>
                         </div>
                     </div>
                 </div>
+                <Navbar openMenu={openMenu} setOpenMenu={setOpenMenu} />
             </div>
     )
 }
