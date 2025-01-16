@@ -7,7 +7,7 @@ import Navbar from './Navbar'
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
     return (
-            <div className="flex items-center">
+            <div className="flex items-center bg-white">
                 <div className='px-4 md:pl-10 md:pr-8'>
                     <img
                         src={logo}
@@ -42,7 +42,9 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
+                <div className='flex md:hidden'>
                 <Navbar openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                </div>
             </div>
     )
 }

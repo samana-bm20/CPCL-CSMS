@@ -6,11 +6,13 @@ import { Outlet } from 'react-router-dom'
 const MainLayout = () => {
   return (
     <div className='flex flex-col min-h-dvh'>
-      <div className='w-full'>
+      <div className='w-full h-fit z-10'>
         <Header />
         <Navbar />
       </div>
-      <Outlet />
+      <div className='z-9 h-calc-dvh-4rem md:h-calc-dvh-7.5rem overflow-auto scrollbar-hide'>
+        <Outlet />
+      </div>
     </div>
   )
 }

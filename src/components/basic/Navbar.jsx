@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowDownwardRounded, ArrowDropDownRounded, ArrowDropUp, ArrowDropUpRounded, ArrowRightRounded, FmdBadRounded, NotificationsRounded, PersonRounded } from '@mui/icons-material'
+import { ArrowDropDownRounded, ArrowDropUpRounded, ArrowRightRounded, FmdBadRounded, NotificationsRounded, PersonRounded } from '@mui/icons-material'
 import React from 'react'
 import navItems from './NavRoutes'
 import { useNavigate } from 'react-router-dom'
@@ -18,71 +18,102 @@ const Navbar = ({ openMenu, setOpenMenu }) => {
 
     return (
         <>
-            <div className='hidden md:block w-full shadow-xl px-10'>
-                <div className='flex items-center justify-between h-full gap-2'>
-                    {navItems.map((item, index) => (
-                        <div key={index}>
-                            <div
-                                className='flex items-center justify-center relative group hover:text-secondary cursor-pointer py-3 font-semibold'
-                                onMouseEnter={() => { setHoveredItem(item.title); setHoveredSubItem(null) }}
-                                onMouseLeave={() => { setHoveredItem(null); setHoveredSubItem(null) }}
-                                onClick={() => handleNavigation(item.path)}>
-                                <item.icon color='primary' fontSize='small' className='group-hover:text-secondary' />
-                                <p className='pl-1 font-inter text-sm text-primary group-hover:text-secondary leading-none'>
-                                    {item.title}
-                                </p>
+            <div className='hidden md:block w-full shadow-xl px-10 bg-white'>
+                <div className='flex items-center justify-between h-[3rem] gap-2'>
+                    {navItems.map((item, index) => {
+                        const isActive = window.location.pathname.includes(item.path) ||
+                            (item.dropdown && item.dropdown.some(subItem =>
+                                window.location.pathname.includes(subItem.path) ||
+                                (subItem.children && subItem.children.some(child => window.location.pathname.includes(child.path)))
+                            ));
 
-                                <div>
-                                    {item.dropdown && hoveredItem === item.title && (
-                                        <div
-                                            className="absolute left-0 top-full bg-white drop-shadow-md rounded-b-md w-[15rem] border-t-2 border-secondary px-2"
-                                            onMouseEnter={() => setHoveredItem(item.title)}
-                                            onMouseLeave={() => { setHoveredItem(null); setHoveredSubItem(null) }}>
-                                            {item.dropdown.map((subItem, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="flex justify-between items-center p-1 font-medium hover:font-semibold relative"
-                                                    onClick={() => {
-                                                        handleNavigation(subItem.path)
-                                                        setHoveredSubItem(subItem.title)
-                                                        if (!subItem.children) {
-                                                            setHoveredItem(null)
-                                                        }
-                                                    }}
-                                                >
-                                                    <p className="font-inter font-sm text-sm group-hover:text-contrast">
-                                                        {subItem.title}
-                                                    </p>
-                                                    {subItem.children && (
-                                                        <ArrowRightRounded fontSize='small' color='contrast' />
-                                                    )}
+                        return (
+                            <div key={index}>
+                                <div
+                                    className={`flex items-center justify-center relative group hover:text-secondary cursor-pointer py-3 font-semibold ${isActive ? 'text-secondary' : ''
+                                        }`}
+                                    onMouseEnter={() => { setHoveredItem(item.title); setHoveredSubItem(null); }}
+                                    onMouseLeave={() => { setHoveredItem(null); setHoveredSubItem(null); }}
+                                    onClick={() => handleNavigation(item.path)}
+                                >
+                                    <item.icon
+                                        fontSize="small"
+                                        className={`group-hover:text-secondary ${isActive ? 'text-secondary' : 'text-primary'}`}
+                                    />                                    <p
+                                        className={`pl-1 font-inter text-sm leading-none ${isActive ? 'text-secondary' : 'text-primary group-hover:text-secondary'
+                                            }`}
+                                    >
+                                        {item.title}
+                                    </p>
 
-                                                    {subItem.children && hoveredSubItem === subItem.title && (
-                                                        <div className='absolute left-full -top-0.5 bg-white w-[15rem] drop-shadow-sm px-2 ml-1.5 border-t-2 border-secondary'>
-                                                            {subItem.children.map((child, index) => (
+                                    <div>
+                                        {item.dropdown && hoveredItem === item.title && (
+                                            <div
+                                                className={`absolute left-0 top-full bg-white drop-shadow-md w-[15rem] border-t-2 border-secondary ${item.dropdown.some(subItem =>
+                                                    window.location.pathname.includes(subItem.path) ||
+                                                    (subItem.children && subItem.children.some(child => window.location.pathname.includes(child.path)))
+                                                )
+                                                    ? 'bg-secondary-light'
+                                                    : ''
+                                                    }`}
+                                                onMouseEnter={() => setHoveredItem(item.title)}
+                                                onMouseLeave={() => { setHoveredItem(null); setHoveredSubItem(null); }}
+                                            >
+                                                {item.dropdown.map((subItem, index) => {
+                                                    const isSubItemActive =
+                                                        window.location.pathname.includes(subItem.path) ||
+                                                        (subItem.children && subItem.children.some(child => window.location.pathname.includes(child.path)));
+
+                                                    return (
+                                                        <div
+                                                            key={index}
+                                                            className={`flex justify-between items-center py-1 px-2 font-medium hover:font-semibold hover:bg-secondary-light active:bg-secondary-light relative ${isSubItemActive ? 'bg-secondary-light' : ''
+                                                                }`}
+                                                            onClick={() => {
+                                                                handleNavigation(subItem.path);
+                                                                setHoveredSubItem(subItem.title);
+                                                                if (!subItem.children) {
+                                                                    setHoveredItem(null);
+                                                                }
+                                                            }}
+                                                        >
+                                                            <p className="font-inter font-sm text-sm group-hover:text-contrast">{subItem.title}</p>
+                                                            {subItem.children && <ArrowRightRounded fontSize="small" color="contrast" />}
+
+                                                            {subItem.children && hoveredSubItem === subItem.title && (
                                                                 <div
-                                                                    key={index}
-                                                                    className='p-1 font-medium hover:font-semibold'
-                                                                    onClick={() => {
-                                                                        handleNavigation(child.path)
-                                                                        setHoveredItem(null)
-                                                                    }}
+                                                                    className={`absolute left-full -top-0.5 bg-white w-[15rem] drop-shadow-sm border-t-2 border-secondary ${subItem.children.some(child => window.location.pathname.includes(child.path))
+                                                                        ? 'bg-secondary-light'
+                                                                        : ''
+                                                                        }`}
                                                                 >
-                                                                    <p className="font-inter font-sm text-sm group-hover:text-contrast bg-white">
-                                                                        {child.title}
-                                                                    </p>
+                                                                    {subItem.children.map((child, index) => (
+                                                                        <div
+                                                                            key={index}
+                                                                            className="py-1 px-2 font-medium hover:font-semibold hover:bg-secondary-light"
+                                                                            onClick={() => {
+                                                                                handleNavigation(child.path);
+                                                                                setHoveredItem(null);
+                                                                            }}
+                                                                        >
+                                                                            <p className="font-inter font-sm text-sm group-hover:text-contrast hover:bg-secondary-light">
+                                                                                {child.title}
+                                                                            </p>
+                                                                        </div>
+                                                                    ))}
                                                                 </div>
-                                                            ))}
+                                                            )}
                                                         </div>
-                                                    )}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
+
                 </div>
             </div>
 
@@ -94,6 +125,8 @@ const Navbar = ({ openMenu, setOpenMenu }) => {
                         onClick={() => {
                             console.log("Backdrop clicked");
                             setOpenMenu(false);
+                            setHoveredItem(null);
+                            setHoveredSubItem(null);
                         }}>
 
                     </div>

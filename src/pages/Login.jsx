@@ -141,11 +141,10 @@ const Login = () => {
                                 endIcon={<LoginRounded />}
                                 sx={{
                                     bgcolor: 'primary.main',
-                                    transition: 'all 0.3s ease 0.1s', // Transition with delay for smooth effect
+                                    transition: 'all 0.3s ease 0.1s',
                                     '&:hover': {
                                         bgcolor: 'secondary.main',
                                         transform: 'translateY(-3px)',
-                                        // transition: 'all 0.3s ease-in-out',
                                     },
                                 }}
                             >

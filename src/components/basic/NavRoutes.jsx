@@ -85,6 +85,7 @@ const navItems = [
     {
         icon: MapRounded,
         title: 'Map Dashboard',
+        path: 'map',
         dropdown: null
     },
 ]

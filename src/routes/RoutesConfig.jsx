@@ -11,6 +11,7 @@ const RequestClearance = React.lazy(() => import('../components/work permit/Requ
 const IssueClearance = React.lazy(() => import('../components/work permit/IssueClearance'));
 const RequestClosure = React.lazy(() => import('../components/work permit/RequestClosure'));
 const IssueClosure = React.lazy(() => import('../components/work permit/IssueClosure'));
+const MapContainer = React.lazy(() => import('../components/map dashboard/map-core/MapContainer'));
 
 //routes
 const routesConfig = [
@@ -24,5 +25,6 @@ const routesConfig = [
     { path: 'issueClearance', component: IssueClearance },
     { path: 'requestClosure', component: RequestClosure },
     { path: 'issueClosure', component: IssueClosure },
+    { path: 'map', component: MapContainer },
 ];
 export default routesConfig;

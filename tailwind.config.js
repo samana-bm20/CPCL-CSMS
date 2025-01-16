@@ -9,6 +9,7 @@ export default {
         'primary': {
           DEFAULT: '#2E3192',
           light: '#CDD5EF',
+          bg: '#e3e9f9'
         },
         'secondary': {
           DEFAULT: '#ED1C24',
@@ -17,6 +18,7 @@ export default {
         },
         'contrast': '#333',
         'white': '#fff',
+        'red': '#C62828'
     },
     extend: {
       screens: {
@@ -36,7 +38,12 @@ export default {
       },
       boxShadow: {
         customPurple: 'rgba(46, 49, 146, 0.6) 0px 0px 2px 0.5px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset',
-        customPink: 'rgba(236, 31, 39, 0.6) 0px 0px 2px 0.5px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset'
+        customPink: 'rgba(236, 31, 39, 0.6) 0px 0px 2px 0.5px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset',
+        card: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
+      },
+      height: {
+        'calc-dvh-4rem': 'calc(100vh - 4rem)',
+        'calc-dvh-7.5rem': 'calc(100vh - 7.5rem)',
       },
     },
   },
