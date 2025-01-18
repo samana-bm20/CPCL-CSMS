@@ -5,9 +5,12 @@ import {
   RadioGroup, Radio, Checkbox
 } from "@mui/material";
 import { AcUnitRounded, AddLocationAltRounded } from "@mui/icons-material";
+import MapModal from "../MapModal";
 
 export const ColdWork = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [openMapModal, setOpenMapModal] = useState(false);
+
   const checklistData = [
     { id: 1, question: "JSA conducted for the job and communicated" },
     { id: 2, question: "Tool box talk given by site engineer before start of job" },
@@ -30,10 +33,13 @@ export const ColdWork = () => {
     entryDate: "",
     entryTime: "",
     permitCategory: "",
+    notificationNo: "",
     startDate: "",
     endDate: "",
     startTime: "",
     endTime: "",
+    dept_section_contractor: "",
+    maintenanceTechnician: "",
     location: "",
     area: "",
     subArea: "",
@@ -47,6 +53,11 @@ export const ColdWork = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAreaSelection = (selectedArea) => {
+    setFormData((prev) => ({ ...prev, area: selectedArea.area }));
+    setOpenMapModal(false);
   };
 
   //#region Form HTML
@@ -157,21 +168,7 @@ export const ColdWork = () => {
                   <p className="py-1 px-1 text-xs md:text-sm text-contrast font-medium font-inter">Area<span className="text-secondary">*</span></p>
                   <div className="flex items-center justify-center">
                     <p className="text-[0.6rem] md:text-xs text-contrast italic font-inter">(locate on map)</p>
-                    <IconButton aria-label="addlocation" size="small" >
-                      <AddLocationAltRounded
-                        sx={{
-                          fontSize: {
-                            xs: '1rem',
-                            md: '1.5rem',
-                          },
-                          color: 'primary.main',
-                          transition: 'all 0.3s ease 0.1s',
-                          '&:hover': {
-                            color: 'secondary.main',
-                            transform: 'translateY(-3px)',
-                          },
-                        }} />
-                    </IconButton>
+                    <MapModal openMapModal={openMapModal} setOpenMapModal={setOpenMapModal} setSelectedArea={handleAreaSelection} />
                   </div>
                 </div>
                 <Select
@@ -181,11 +178,23 @@ export const ColdWork = () => {
                   name="area"
                   value={formData.area}
                   onChange={handleInputChange}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        '& .MuiMenuItem-root': {
+                          fontSize: {
+                            xs: '0.9rem',
+                            md: '1rem'
+                          },
+                          padding: '0.4rem',
+                        },
+                      },
+                    },
+                  }}
                 >
-                  <MenuItem value="">None</MenuItem>
-                  <MenuItem value={10}>Refinery-I</MenuItem>
-                  <MenuItem value={20}>Refinery-II</MenuItem>
-                  <MenuItem value={30}>Refinery-III</MenuItem>
+                  <MenuItem value='Refinery 1'>Refinery-I</MenuItem>
+                  <MenuItem value='Refinery 2'>Refinery-II</MenuItem>
+                  <MenuItem value='Refinery 3'>Refinery-III</MenuItem>
                 </Select>
               </div>
               <div>
@@ -197,6 +206,19 @@ export const ColdWork = () => {
                   name="area"
                   value={formData.area}
                   onChange={handleInputChange}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        '& .MuiMenuItem-root': {
+                          fontSize: {
+                            xs: '0.9rem',
+                            md: '1rem'
+                          },
+                          padding: '0.4rem',
+                        },
+                      },
+                    },
+                  }}
                 >
                   <MenuItem value="">None</MenuItem>
                   <MenuItem value={10}>Crude-I</MenuItem>
@@ -377,7 +399,7 @@ export const ColdWork = () => {
   };
 
   return (
-    <div className="p-8 md:py-8 md:px-16 h-max w-full bg-secondary-bg">
+    <div className="p-8 md:py-12 md:px-16 h-max w-full bg-secondary-bg">
       <div className="rounded-xl bg-white shadow-card">
         <div className="p-3 md:p-5 flex items-center justify-center">
           <AcUnitRounded color="contrast"
@@ -404,7 +426,7 @@ export const ColdWork = () => {
                 px: 1,
                 overflow: 'hidden'
               }}>
-              <Tab label="Requester Details" className="text-xs" sx={{
+              <Tab label="Requester Details" sx={{
                 bgcolor: 'primary.main', mt: 1, mr: 1,
                 minHeight: '40px',
                 color: 'primary.contrastText',
