@@ -1,6 +1,7 @@
 import { loadModules } from "esri-loader";
+import { chennaiExtent } from "./geometryUtils";
+import { addWidgets, addLegend } from "./Widgets";
 const [
-
     MapView,
     Map,
     Popup,
@@ -12,11 +13,10 @@ const [
     ],
     { css: true }
 );
-import { chennaiExtent } from "./geometryUtils";
-import { addWidgets, addLegend } from "./Widgets";
+
 
 export const setupMapView = (containerId, constraints) => {
-    const map = new Map({ basemap: "satellite" });
+    const map = new Map({ basemap: "gray-vector" });
 
     const view = new MapView({
         map,
@@ -33,7 +33,6 @@ export const setupMapView = (containerId, constraints) => {
     });
 
     addWidgets(view);
-    // addLegend(view);
 
     return { view, map };
 };

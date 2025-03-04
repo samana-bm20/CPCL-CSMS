@@ -29,7 +29,7 @@ const SidePanel = () => {
             {listItems.map((item) => (
                 <div key={item.sno} className="flex flex-col items-center justify-center mx-2 md:my-2 md:rounded-lg md:shadow-customPink h-[3.2rem] w-[3.2rem] bg-white">
                     {item.icon}
-                    <p className="text-[0.7rem] font-poppins font-medium text-gray-800">{item.name}</p>
+                    <p className="text-[0.7rem] font-inter font-medium text-contrast">{item.name}</p>
                 </div>
             ))}
         </div>

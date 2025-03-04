@@ -10,7 +10,7 @@ const MainLayout = () => {
         <Header />
         <Navbar />
       </div>
-      <div className='z-9 h-calc-dvh-4rem md:h-calc-dvh-7.5rem overflow-auto scrollbar-hide'>
+      <div className='z-9 h-calc-dvh-4rem md:h-calc-dvh-7.5rem overflow-auto scrollbar-hide bg-secondary-bg'>
         <Outlet />
       </div>
     </div>

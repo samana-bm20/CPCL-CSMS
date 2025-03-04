@@ -1,5 +1,5 @@
 import { loadModules } from "esri-loader";
-const [FeatureLayer] = await loadModules(['esri/layers/FeatureLayer'], { css: true });
+const [FeatureLayer, GeoJSONLayer] = await loadModules(['esri/layers/FeatureLayer', 'esri/layers/GeoJSONLayer'], { css: true });
 
 export const createFeatureLayer = (url, renderer, popupTemplate, featureReduction = null) => {
     return new FeatureLayer({
@@ -27,7 +27,7 @@ export const createCluster = (clusterRadius, popupTemplate, clusterMinSize, clus
 });
 
 export const createClusterLayer = (url, renderer, popup, clusterConfig) => {
-    return new FeatureLayer({
+    return new GeoJSONLayer({
         url,
         renderer,
         popup,

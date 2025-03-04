@@ -22,7 +22,7 @@ const WorkPermitLayer = async (map, view, indiaWebMercatorExtent, isRiskScoreAct
 
 
     const workPermitLayer = createClusterLayer(
-        "https://mlinfomap.org/server/rest/services/cpcl_work_permit/MapServer/0",
+        "/railFracture.geojson",
         workPermitRenderer,
         workPermitPopup
     );
@@ -99,10 +99,10 @@ const WorkPermitLayer = async (map, view, indiaWebMercatorExtent, isRiskScoreAct
                         symbol: {
                             type: "text",
                             color: "black",
-                            xoffset: 11,
-                            yoffset: -2,
+                            xoffset: 8,
+                            // yoffset: -2,
                             font: { weight: "bold", family: "Noto Sans", size: "13px" },
-                            haloColor: "#ff711d",
+                            haloColor: "#ff711d", //orange
                             haloSize: "10px",
                         },
                         labelPlacement: "above-left",
@@ -115,9 +115,9 @@ const WorkPermitLayer = async (map, view, indiaWebMercatorExtent, isRiskScoreAct
                         symbol: {
                             type: "text",
                             color: "black",
-                            yoffset: -10,
+                            // yoffset: -10,
                             font: { weight: "bold", family: "Noto Sans", size: "13px" },
-                            haloColor: "#edbe00",
+                            haloColor: "#edbe00", //yellow
                             haloSize: "10px",
                         },
                         labelPlacement: "above-center",
@@ -130,10 +130,10 @@ const WorkPermitLayer = async (map, view, indiaWebMercatorExtent, isRiskScoreAct
                         symbol: {
                             type: "text",
                             color: "black",
-                            xoffset: -11,
-                            yoffset: -2,
+                            xoffset: -8,
+                            // yoffset: -2,
                             font: { weight: "bold", family: "Noto Sans", size: "13px", },
-                            haloColor: "#00a200",
+                            haloColor: "#00a200", //green
                             haloSize: "10px",
                         },
                         labelPlacement: "above-right",
@@ -187,7 +187,6 @@ const WorkPermitLayer = async (map, view, indiaWebMercatorExtent, isRiskScoreAct
 
     view.on("layerview-create", (event) => {
         console.log("LayerView created:", event);
-        debugger
         // Check if clustering is enabled
         if (event.layerView.featureReduction?.cluster) {
             const clusterLayerView = event.layerView.featureReduction.cluster;

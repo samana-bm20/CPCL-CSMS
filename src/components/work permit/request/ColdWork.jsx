@@ -56,7 +56,7 @@ export const ColdWork = () => {
   };
 
   const handleAreaSelection = (selectedArea) => {
-    setFormData((prev) => ({ ...prev, area: selectedArea.area }));
+    setFormData((prev) => ({ ...prev, area: selectedArea.area, subArea: selectedArea.subArea }));
     setOpenMapModal(false);
   };
 
@@ -163,12 +163,13 @@ export const ColdWork = () => {
                   onChange={handleInputChange}
                 />
               </div>
+              <div className="grid gap-2 md:gap-4">
               <div>
                 <div className="w-full flex justify-between items-center">
                   <p className="py-1 px-1 text-xs md:text-sm text-contrast font-medium font-inter">Area<span className="text-secondary">*</span></p>
                   <div className="flex items-center justify-center">
-                    <p className="text-[0.6rem] md:text-xs text-contrast italic font-inter">(locate on map)</p>
-                    <MapModal openMapModal={openMapModal} setOpenMapModal={setOpenMapModal} setSelectedArea={handleAreaSelection} />
+                    {/* <p className="text-[0.6rem] md:text-xs text-contrast italic font-inter">(locate on map)</p> */}
+                   
                   </div>
                 </div>
                 <Select
@@ -197,6 +198,7 @@ export const ColdWork = () => {
                   <MenuItem value='Refinery 3'>Refinery-III</MenuItem>
                 </Select>
               </div>
+              
               <div>
                 <p className="p-1 md:pt-1 md:pb-2.5 text-xs md:text-sm text-contrast font-medium font-inter">Sub Area<span className="text-secondary">*</span></p>
                 <Select
@@ -204,7 +206,7 @@ export const ColdWork = () => {
                   color="primary"
                   fullWidth
                   name="area"
-                  value={formData.area}
+                  value={formData.subArea}
                   onChange={handleInputChange}
                   MenuProps={{
                     PaperProps: {
@@ -220,12 +222,18 @@ export const ColdWork = () => {
                     },
                   }}
                 >
-                  <MenuItem value="">None</MenuItem>
-                  <MenuItem value={10}>Crude-I</MenuItem>
-                  <MenuItem value={20}>Crude-II</MenuItem>
-                  <MenuItem value={30}>Crude-III</MenuItem>
+                  <MenuItem value='Crude 1'>Crude-I</MenuItem>
+                  <MenuItem value='Crude 2'>Crude-II</MenuItem>
+                  <MenuItem value='Crude 3'>Crude-III</MenuItem>
                 </Select>
               </div>
+              </div>
+
+              <div>
+              <p className="text-[0.6rem] md:text-xs text-contrast italic font-inter">(select area/sub-area)</p> 
+              <MapModal openMapModal={openMapModal} setOpenMapModal={setOpenMapModal} setSelectedArea={handleAreaSelection} />
+              </div>
+            
               <div>
                 <p className="py-1 px-1 text-xs md:text-sm text-contrast font-medium font-inter">Start Date<span className="text-secondary">*</span></p>
                 <TextField
@@ -400,7 +408,7 @@ export const ColdWork = () => {
 
   return (
     <div className="p-8 md:py-12 md:px-16 h-max w-full bg-secondary-bg">
-      <div className="rounded-xl bg-white shadow-card">
+      <div className="rounded-xl h-full bg-white shadow-card">
         <div className="p-3 md:p-5 flex items-center justify-center">
           <AcUnitRounded color="contrast"
             sx={{

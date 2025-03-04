@@ -8,7 +8,7 @@ import routesConfig from './RoutesConfig';
 const MainLayout = React.lazy(() => import('../layout/MainLayout'));
 const Login = React.lazy(() => import('../pages/Login'));
 
-const isAuthenticated = true;
+const isAuthenticated = false;
 
 const ProtectedRoute = ({ element }) => {
     return isAuthenticated ? element : <Navigate to="/e-safeview" replace />;

@@ -5,7 +5,11 @@
 }
 
 .esri-zoom {
-    margin-top: 2.8rem;
+    margin-top: 2.8rem !important;
+}
+
+.esri-home {
+    margin-top: 2.8rem !important;
 }
 
 .esri-widget--button[title="Zoom in"] {
@@ -17,12 +21,19 @@
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
 }
-
-.esri-expand {
-    margin-bottom: -1.2rem;
+.esri-widget--button[title="Show Legend"] {
+    border-radius: 8px !important;
 }
 
+/* .esri-expand {
+    margin-bottom: -1.2rem;
+} */
+
 .esri-widget--button[title="Expand"] {
+    border-radius: 8px !important;
+    box-shadow: rgba(236, 31, 39, 0.6) 0px 0px 0px 0.2px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset !important;
+}
+.esri-widget__button[title="Collapse"] {
     border-radius: 8px !important;
     box-shadow: rgba(236, 31, 39, 0.6) 0px 0px 0px 0.2px, rgba(10, 37, 64, 0.35) 0px -1px 2px 0px inset !important;
 }
@@ -193,3 +204,59 @@
     color: #424242 !important; 
     font-size: 0.7rem !important;
 }
+
+.esri-legend__service {
+    height: 15rem !important;
+}
+
+.esri-widget .esri-widget--panel {
+    max-height: 19rem !important;
+}
+
+.esri-expand__content .esri-expand__content--expanded {
+    max-height: 20.5rem !important;
+}
+
+.esri-view-height-xsmall .esri-ui-corner .esri-component .esri-expand__content {
+    max-height: fit-content !important;
+}
+
+.esri-layer-list__item-toggle [class^="esri-icon-"] {
+    color: #2E3192 !important;
+}
+
+/* .esri-layer-list__item-container {
+    padding: 1 !important;
+} */
+
+.esri-layer-list__item-title, .esri-legend__layer-caption{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600 !important;
+    color: #424242 !important; 
+    font-size: 0.7rem !important;
+}
+
+.esri-legend__layer-caption {
+    word-break: keep-all !important;
+    padding: 0 !important;
+}
+
+.esri-legend__layer-table--size-ramp {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.esri-view-width-xsmall .esri-expand__container--expanded {
+    width: 100% !important;
+} 
+
+.esri-expand__content {
+    right: 0 !important;
+    left: 0 !important;
+}
+
+.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {
+    position: relative !important;
+    border-radius: 4%;
+}
+
